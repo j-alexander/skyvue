@@ -11,10 +11,10 @@ open SkyVue.Service
 [<TestFixture>]
 type JoinTest() =
 
-    let identity = "test_identity2"
-    let password = "test_password2"
-    let name = "test_name2"
-    let email = "test_user2@server.com"
+    let identity = "test_identity"
+    let password = "test_password"
+    let name = "test_name"
+    let email = "test_user@server.com"
     let created = DateTime.Now
 
     [<SetUp>]
