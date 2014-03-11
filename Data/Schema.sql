@@ -41,6 +41,10 @@ CREATE TABLE [dbo].[inbox](
 	[InboxId] [nvarchar](255) NOT NULL,
 CONSTRAINT [PK_inbox_InboxId] PRIMARY KEY CLUSTERED ([InboxId] ASC))
 
+CREATE TABLE [dbo].[lock](
+	[ChannelId] [nvarchar](255) NOT NULL,
+	[ProtectionKey] [nvarchar](255) NOT NULL,
+CONSTRAINT [PK_lock_ChannelId] PRIMARY KEY CLUSTERED ([ChannelId] ASC))
 
 CREATE TABLE [dbo].[mail](
 	[MailId] [nvarchar](255) NOT NULL,

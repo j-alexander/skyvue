@@ -177,8 +177,26 @@ type ManageService(db : DataStore, logon : ILogon) =
             if String.IsNullOrWhiteSpace password then
                 raise (BadIdentityOrPassword "Your key cannot be empty.")
 
-            channel.ProtectionKey <- password
+            // mark the channel as protected
             channel.IsProtected <- DataStore.yes
+
+            // find an existing lock, if any
+            let matches = query {
+                for l in db.Lock do
+                where (l.ChannelId = channelId)
+                select l
+            }
+            if Seq.length matches = 0 then
+                // insert a new channel lock
+                let lock = new Lock()
+                lock.ChannelId <- channelId
+                lock.ProtectionKey <- password
+                db.Lock.InsertOnSubmit(lock)
+            else
+                // update the existing lock
+                let lock = Seq.head matches
+                lock.ProtectionKey <- password
+
             db.DataContext.SubmitChanges()
             channel
             

@@ -58,6 +58,7 @@
     <Compile Include="Credential.fs" />
     <Compile Include="File.fs" />
     <Compile Include="Inbox.fs" />
+    <Compile Include="Lock.fs" />
     <Compile Include="Mail.fs" />
     <Compile Include="Outbox.fs" />
     <Compile Include="Post.fs" />

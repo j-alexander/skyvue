@@ -12,7 +12,6 @@ module Channel =
     let isProtected (x : Channel) = x.IsProtected
     let isPublic (x : Channel) = x.IsPublic
     let name (x : Channel) = x.Name
-    let protectionKey (x : Channel) = x.ProtectionKey
     let userId (x : Channel) = x.UserId
 
     let permissions (x : Channel) =

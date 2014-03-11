@@ -169,8 +169,9 @@ type SubscribeService(db : DataStore, logon : ILogon) =
                 // attempt to create a new key
                 let matches = query {
                     for c in db.Channel do
+                    join l in db.Lock on (c.ChannelId = l.ChannelId)
                     where (c.ChannelId = channelId &&
-                           c.ProtectionKey = password)
+                           l.ProtectionKey = password)
                     select c
                 }
                 if Seq.length matches <> 1 then
