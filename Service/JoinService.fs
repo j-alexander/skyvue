@@ -46,7 +46,7 @@ type JoinService(db : DataStore) =
             }
             if existingMatches > 0 then
                 raise (AlreadyExists "This identity is already in use.")
-               
+
             // insert and return the new user     
             let user = new User()
             user.UserId <- DataStore.id()
@@ -55,8 +55,11 @@ type JoinService(db : DataStore) =
             user.CanLogon <- DataStore.yes
             user.Identity <- identity
             user.Name <- name
-            user.Password <- password
             user.EMail <- mail
             db.User.InsertOnSubmit(user)
+            let credential = new Credential()
+            credential.UserId <- user.UserId
+            credential.Password <- password
+            db.Credential.InsertOnSubmit(credential)
             db.DataContext.SubmitChanges()
             user

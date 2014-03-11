@@ -55,6 +55,7 @@
     <Compile Include="Permission.fs" />
     <Compile Include="Channel.fs" />
     <Compile Include="Content.fs" />
+    <Compile Include="Credential.fs" />
     <Compile Include="File.fs" />
     <Compile Include="Inbox.fs" />
     <Compile Include="Mail.fs" />

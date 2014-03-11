@@ -14,4 +14,3 @@ module User =
     let eMail (x : User) = x.EMail
     let identity (x : User) = x.Identity
     let name (x : User) = x.Name
-    let password (x : User) = x.Password

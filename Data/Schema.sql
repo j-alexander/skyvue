@@ -20,6 +20,11 @@ CREATE TABLE [dbo].[content](
 	[IsSummarized] [smallint] NOT NULL,
 CONSTRAINT [PK_content_ContentId] PRIMARY KEY CLUSTERED ([ContentId] ASC))
 
+CREATE TABLE [dbo].[credential](
+	[UserId] [nvarchar](255) NOT NULL,
+	[Password] [nvarchar](255) NOT NULL,
+CONSTRAINT [PK_credential_UserId] PRIMARY KEY CLUSTERED ([UserId] ASC))
+
 CREATE TABLE [dbo].[file](
 	[ContentId] [nvarchar](255) NOT NULL,
 	[Description] [nvarchar](255) NOT NULL,
@@ -111,5 +116,4 @@ CREATE TABLE [dbo].[user](
 	[eMail] [nvarchar](255) NOT NULL,
 	[Identity] [nvarchar](255) NOT NULL,
 	[Name] [nvarchar](255) NOT NULL,
-	[Password] [nvarchar](255) NOT NULL,
 CONSTRAINT [PK_user_UserId] PRIMARY KEY CLUSTERED ([UserId] ASC))

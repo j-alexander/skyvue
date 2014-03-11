@@ -24,7 +24,8 @@ type LogonService(db : DataStore) =
         // verify that a matching user exists
         let matches = query {
             for u in db.User do
-            where (u.Identity = identity && u.Password = password)
+            join c in db.Credential on (u.UserId = c.UserId)
+            where (u.Identity = identity && c.Password = password)
             select u
         }
         if 1 <> Seq.length matches then
@@ -60,7 +61,13 @@ type LogonService(db : DataStore) =
             // validate the credentials
             let logon = x :> ILogon
             let user = logon.Verify token
-            if (user.Password <> previous) then
+
+            let matches = query {
+                for c in db.Credential do
+                where (c.UserId = user.UserId && c.Password = previous)
+                select c
+            }
+            if (Seq.length matches <> 1) then
                 raise (BadIdentityOrPassword "You must enter your previous password correctly.")
           
             // TODO: encode the passwords
@@ -69,7 +76,8 @@ type LogonService(db : DataStore) =
                 raise (BadIdentityOrPassword "You must supply a password.")
 
             // update the user's password
-            user.Password <- password
+            let credential = Seq.head matches
+            credential.Password <- password
             db.DataContext.Refresh(RefreshMode.KeepChanges, user)
             db.DataContext.SubmitChanges()
             user
